@@ -27,7 +27,8 @@ service:
 ingress:
   enabled: false
   className: ""
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -40,7 +41,8 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+resources:
+  {}
   # requests:
   #   cpu: 100m
   #   memory: 64Mi
@@ -66,7 +68,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
 
 # Reference: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
 postgresql:
@@ -98,7 +99,7 @@ config:
   full_refresh: false
   feed_threads: 1
   invidious_companion:
-    - private_url: "http://{{ template "invidious.fullname" . }}-companion:12999"
+    - private_url: "-companion:12999"
       public_url: ""
 
 sighelper:
@@ -120,4 +121,4 @@ companion:
     repository: quay.io/invidious/invidious-companion
     tag: latest
     pullPolicy: Always
-  key: "" # Random key for invidious_companion_key. 
+  key: "" # Random key for invidious_companion_key.
