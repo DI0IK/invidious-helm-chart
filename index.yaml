@@ -1,0 +1,33 @@
+apiVersion: v1
+entries:
+  invidious:
+  - apiVersion: v2
+    appVersion: v2.20240427
+    created: "2025-04-08T10:51:35.939619368Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: ~14.3.1
+    description: Invidious is an alternative front-end to YouTube
+    digest: a9efb7f0a9d4d19f2d8357e220666fbba07eaed17eca68bbc7f81c4bbb740f07
+    home: https://invidious.io
+    icon: https://raw.githubusercontent.com/iv-org/invidious/05988c1c49851b7d0094fca16aeaf6382a7f64ab/assets/favicon-32x32.png
+    keywords:
+    - youtube
+    - proxy
+    - video
+    - privacy
+    maintainers:
+    - email: mail@leonklingele.de
+      name: Leon Klingele
+    - name: JuniorJPDJ
+      url: https://github.com/JuniorJPDJ
+    name: invidious
+    sources:
+    - https://github.com/iv-org/invidious
+    type: application
+    urls:
+    - https://github.com/DI0IK/invidious-helm-chart/releases/download/invidious-2.1.0/invidious-2.1.0.tgz
+    version: 2.1.0
+generated: "2025-04-08T10:51:35.939625099Z"
