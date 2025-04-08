@@ -10,7 +10,7 @@ spec:
   type: ClusterIP
   ports:
     - port: {{ .Values.companion.service.port }}
-      targetPort: 12999
+      targetPort: 8282
       protocol: TCP
       name: companion
   selector:
