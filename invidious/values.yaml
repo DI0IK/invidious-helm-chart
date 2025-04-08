@@ -97,6 +97,9 @@ config:
   channel_threads: 1
   full_refresh: false
   feed_threads: 1
+  invidious_companion:
+    - private_url: "http://{{ template "invidious.fullname" . }}-companion:12999"
+      public_url: ""
 
 sighelper:
   enabled: true
@@ -107,3 +110,14 @@ sighelper:
     repository: quay.io/invidious/inv-sig-helper
     tag: latest
     pullPolicy: Always
+
+companion:
+  enabled: true
+  resources: {}
+  service:
+    port: 8282
+  image:
+    repository: quay.io/invidious/invidious-companion
+    tag: latest
+    pullPolicy: Always
+  key: "" # Random key for invidious_companion_key. 

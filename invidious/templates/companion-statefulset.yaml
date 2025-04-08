@@ -1,0 +1,63 @@
+{{- if .Values.companion.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "invidious.fullname" . }}-companion
+  labels:
+    {{- include "invidious.labels" . | nindent 4 }}
+    app.kubernetes.io/component: companion
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "invidious.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: companion
+  serviceName: {{ template "invidious.fullname" . }}-companion
+  template:
+    metadata:
+      labels:
+        {{- include "invidious.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: companion
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: companion
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.companion.image.repository }}:{{ .Values.companion.image.tag }}"
+          imagePullPolicy: {{ .Values.companion.image.pullPolicy }}
+          env:
+            - name: SERVER_SECRET_KEY
+              value: {{ .Values.companion.key }}
+          ports:
+            - name: companion
+              containerPort: 8282
+              protocol: TCP
+          volumeMounts:
+            - name: invidious-companion-cache
+              mountPath: /var/tmp/youtubei.js
+          livenessProbe:
+            tcpSocket:
+              port: 8282
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 8282
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.companion.resources | nindent 12 }}
+      volumes:
+        - name: invidious-companion-cache
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
